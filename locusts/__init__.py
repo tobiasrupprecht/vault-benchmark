@@ -10,6 +10,7 @@ class VaultLocust(HttpLocust):
 
     token = None
     testdata = None
+    namespace = None
 
     def __init__(self):
         super().__init__()
@@ -20,6 +21,7 @@ class VaultLocust(HttpLocust):
             config = json.load(f)
             self._set_testdata(config)
             self._set_token(config['token'])
+            self._set_namespace(config['vault_namespace'])
 
     @classmethod
     def _set_token(cls, token):
@@ -28,6 +30,10 @@ class VaultLocust(HttpLocust):
     @classmethod
     def _set_testdata(cls, data):
         cls.testdata = data
+
+    @classmethod
+    def _set_namespace(cls, namespace):
+        cls.namespace = namespace
 
 
 class VaultTaskSet(TaskSet):
@@ -60,6 +66,7 @@ class VaultTaskSet(TaskSet):
     def client(self) -> HttpSession:
         client = super().client  # type: HttpSession
         client.headers['X-Vault-Token'] = self.locust.token
+        client.headers['X-Vault-Namespace'] = self.locust.namespace
         return client
 
 

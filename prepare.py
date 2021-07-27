@@ -6,18 +6,20 @@ import requests
 import click
 import json
 from typing import List
-from common import get_kv_version
+# from common import get_kv_version
 
 
-def populate(host: str, count: int, size: int, cacerts: str, token: str) -> List[str]:
+def populate(host: str, count: int, size: int, cacerts: str, token: str, namespace: str) -> List[str]:
 
     s = requests.Session()
-    s.headers = {'X-Vault-Token': token}
+    s.headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
+#    s.headers = {'X-Vault-Token': token}
     if cacerts:
         s.verify = cacerts
 
     click.echo('\nChecking Vault KV version...')
-    kv_version = get_kv_version(client=s, host=host)
+#    kv_version = get_kv_version(client=s, host=host)
+    kv_version = 1
     click.echo(click.style(f'Using Vault KV version {kv_version}\n', bold=True, fg='white'))
 
     paths = []
@@ -54,8 +56,9 @@ def populate(host: str, count: int, size: int, cacerts: str, token: str) -> List
 @click.option('--cacerts', default=lambda: os.environ.get('VAULT_CACERT', None),
               help='Path to a certificate chain for enabling TLS to Vault')
 @click.argument('token', envvar='VAULT_TOKEN')
-def main(host, secrets, secret_size, transit_size, cacerts, token):
-    paths = populate(host, secrets, secret_size, cacerts, token)
+@click.argument('namespace', envvar='VAULT_NAMESPACE')
+def main(host, secrets, secret_size, transit_size, cacerts, token, namespace):
+    paths = populate(host, secrets, secret_size, cacerts, token, namespace)
     with open('testdata.json', 'w') as f:
         json.dump({
             'token': token,
@@ -63,7 +66,8 @@ def main(host, secrets, secret_size, transit_size, cacerts, token):
             'secret_size': secret_size,
             'transit_size': transit_size,
             'keys': paths,
-            'vault_cert': cacerts
+            'vault_cert': cacerts,
+            'vault_namespace': namespace
         }, f)
 
 
