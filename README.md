@@ -9,7 +9,7 @@ Consul) by exercising various secrets engines and auth methods.
 You need to have Vault running, obviously, and the vault must be unsealed before 
 starting the test.
 
-Please make sure to have the secrets engines (kv - /secret, pki, transit, database, totp) and auth methods (userpass, approle) enabled that you want to test. Don't change default the path names :)
+Please make sure to have the secrets engines (kv - /secret, pki, transit, database, totp) and auth methods (userpass, approle) enabled that you want to test. Don't change the default path names :)
 
 The code in this repo requires minimum Python3.6.
 
