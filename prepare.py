@@ -19,7 +19,7 @@ def populate(host: str, count: int, size: int, cacerts: str, token: str, namespa
 
     click.echo('\nChecking Vault KV version...')
 #    kv_version = get_kv_version(client=s, host=host)
-    kv_version = 1
+    kv_version = 2
     click.echo(click.style(f'Using Vault KV version {kv_version}\n', bold=True, fg='white'))
 
     paths = []

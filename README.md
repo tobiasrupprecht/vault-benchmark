@@ -57,7 +57,7 @@ prefer.
 
 Example usage:
 
-    VAULT_TOKEN="72e7ff6e-8f44-5414-75a8-99d308649954" ./prepare.py --secrets=10000 --host="http://localhost:8200"
+    VAULT_TOKEN="72e7ff6e-8f44-5414-75a8-99d308649954" ./prepare.py --secrets=1000 --host="http://localhost:8200"
 
 
 ## Running the test
