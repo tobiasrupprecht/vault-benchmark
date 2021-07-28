@@ -13,7 +13,7 @@ class UserPassAuthTasks(VaultTaskSet):
     password = None
 
     def setup(self):
-        self.enable_auth('userpass')
+#        self.enable_auth('userpass')
         self.reset_password()
 
     def teardown(self):

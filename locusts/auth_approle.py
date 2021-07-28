@@ -15,7 +15,7 @@ class AppRoleTaskSet(VaultTaskSet):
     secrets = []
 
     def setup(self):
-        self.enable_auth('approle')
+#        self.enable_auth('approle')
         self.create_approle()
 
     def teardown(self):

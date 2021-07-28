@@ -12,7 +12,7 @@ class TotpTasks(VaultTaskSet):
     ACCOUNT_NAME = 'test@test.com'
 
     def setup(self):
-        self.mount('totp')
+#        self.mount('totp')
         if not self.is_in_list(self.KEY_NAME, '/v1/totp/keys'):
             self.client.post(f'/v1/totp/keys/{self.KEY_NAME}',
                              json={'generate': True,

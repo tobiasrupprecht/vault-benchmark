@@ -15,8 +15,8 @@ from locusts import VaultTaskSet, VaultLocust
 
 class TransitTasks(VaultTaskSet):
 
-    def setup(self):
-        self.mount('transit')
+#    def setup(self):
+#        self.mount('transit')
 
     @task
     def encrypt_block(self):

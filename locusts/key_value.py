@@ -15,11 +15,11 @@ from locusts import VaultTaskSet, VaultLocust
 class KeyValueTasks(VaultTaskSet):
 
     def __init__(self, parent):
-        super().__init__(parent)
-        self.kv_version = 1
+       super().__init__(parent)
+       self.kv_version = 2
 
-    def on_start(self):
-        self.kv_version = common.get_kv_version(client=self.client)
+#    def on_start(self):
+#        self.kv_version = common.get_kv_version(client=self.client)
 
     @task
     def get_kv_secret(self):

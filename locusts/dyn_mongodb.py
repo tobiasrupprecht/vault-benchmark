@@ -20,7 +20,7 @@ class MongoDbTasks(VaultTaskSet):
 
     def setup(self):
         self._set_conn_url(os.environ.get('MONGODB_URL', self.DEFAULT_CONN_URL))
-        self.mount('database')
+#        self.mount('database')
         self.create_connection()
         self.create_role()
 

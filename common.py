@@ -24,7 +24,7 @@ def random_data(size) -> str:
     return ''.join([random.choice(string.ascii_letters) for _ in range(size)])
 
 
-def get_kv_version(client: requests.Session=None, host: str=None, token: str=None) -> int:
+def get_kv_version(client: requests.Session=None, host: str=None, token: str=None, namespace: str=None) -> int:
     if isinstance(client, HttpSession):
         s = client
         r = s.get('/v1/sys/mounts')
@@ -33,7 +33,7 @@ def get_kv_version(client: requests.Session=None, host: str=None, token: str=Non
         r = s.get(f'{host}/v1/sys/mounts')
     else:
         s = requests.Session()
-        s.headers = {'X-Vault-Token': token}
+        s.headers = {'X-Vault-Token': token, 'X-Vault-Namespace': namespace}
         r = s.get(f'{host}/v1/sys/mounts')
 
     r.raise_for_status()

@@ -12,7 +12,7 @@ class PkiTasks(VaultTaskSet):
     ROLE_NAME = 'test-pki-role'
 
     def setup(self):
-        self.mount('pki')
+#        self.mount('pki')
         self.client.post('/v1/pki/root/generate/internal',
                          json={'common_name': self.DOMAIN_NAME, 'ttl': '8760h'})
         self.create_role()
