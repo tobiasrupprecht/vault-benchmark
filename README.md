@@ -27,7 +27,7 @@ If you don't have the databases available or just want to test a subset, remove 
 ## Setup
 
  1. Clone this repo.
- 2. `pip install -r requirements.txt`.
+ 2. `pip3 install -r requirements.txt`.
  3. Run the `prepare.py` script to populate Vault with random secrets.
  4. Run `locust` to start a test.
  
@@ -104,8 +104,9 @@ the `locusts` folder.
 
 When having any Python env issues, run:
 
-    pip install -U --force-reinstall --no-binary :all: gevent
+    pip3 install -U --force-reinstall --no-binary :all: gevent
 
 If not using HCP / Ent:
+
 Comment lines / Take lines out in regards of `namespace` in `init.py` and `prepare.py`.
 For OSS & Ent self-managed, you can uncomment lines in regards of `kv_version` in `prepare.py`.
