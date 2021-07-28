@@ -1,4 +1,3 @@
-locustio==0.14.6
+locustio
 click
 requests
-greenlet==0.4.16

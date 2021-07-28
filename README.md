@@ -9,7 +9,9 @@ Consul) by exercising various secrets engines and auth methods.
 You need to have Vault running, obviously, and the vault must be unsealed before 
 starting the test.
 
-The code in this repo requires Python3.6.
+Please make sure to have the secrets engines (kv, pki, transit, dynamic db, totp) and auth methods (userpass, approle) enabled that you want to test.
+
+The code in this repo requires minimum Python3.6.
 
 If you want to test dynamic secret generation via the database backends (MySQL, 
 MongoDB), you must have those database engines running during the test. You will
@@ -19,7 +21,7 @@ formats, for example:
     export MONGODB_URL="mongodb://localhost:27017/admin"
     export MYSQL_URL="root:password@tcp(127.0.0.1:3306)/mysql"
 
-If you don't have the databases available, remove the database locusts from the
+If you don't have the databases available or just want to test a subset, remove the database and other locusts from the
 `locustfile`.
 
 ## Setup
@@ -43,7 +45,7 @@ with two levels, like this:
 Each secret consists of a single key whose value is a string of random bytes.
 The length of the string is controlled by the `--secret-size` parameter 
 (default: 1024 bytes), and the number of secrets created is controlled by the
-`--num-secrets` parameter (default: 1000).
+`--secrets` parameter (default: 1000).
 
 The script assumes that the target Vault instance lives at 
 http://localhost:8200. If this is not correct, use the `--host` or `-h` option
@@ -55,7 +57,7 @@ prefer.
 
 Example usage:
 
-    VAULT_TOKEN="72e7ff6e-8f44-5414-75a8-99d308649954" ./prepare.py --num-secrets=1000000 --host="http://localhost:8200"
+    VAULT_TOKEN="72e7ff6e-8f44-5414-75a8-99d308649954" ./prepare.py --secrets=10000 --host="http://localhost:8200"
 
 
 ## Running the test
@@ -98,9 +100,12 @@ engine, 20% with the PKI engine, and 20% with the Transit engine. These weights
 can be adjusted by changing the `weight` parameter in each of the files in
 the `locusts` folder.
 
-## Future enhancements
+## Troubleshooting
 
- - [x] Authentication
- - [x] Dynamic secret generation
- - [ ] Reports and analysis?
- 
+When having any Python env issues, run:
+
+    pip install -U --force-reinstall --no-binary :all: gevent
+
+If not using HCP / Ent:
+Comment lines / Take lines out in regards of `namespace` in `init.py` and `prepare.py`.
+For OSS & Ent self-managed, you can uncomment lines in regards of `kv_version` in `prepare.py`.
